@@ -8,5 +8,4 @@ type Item struct {
 	Quantity    int             `json:"quantity"`
 	CurrencyId  string          `json:"currency_id"`
 	UnitPrice   float32         `json:"unit_price"`
-	Payer       PayerPreference `json:"payer"`
 }
