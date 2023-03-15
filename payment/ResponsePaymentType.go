@@ -14,7 +14,7 @@ type ResponsePayment struct {
 	AmountRefunded      float32 `json:"amount_refunded"`
 	CollectorId         string  `json:"collector_id"`
 	Description         string  `json:"description"`
-	LiveMode            string  `json:"live_mode"`
+	LiveMode            bool    `json:"live_mode"`
 	AuthorizationCode   string  `json:"authorization_code"`
 	TransactionDetails  string  `json:"transaction_details"`
 	BinaryMode          bool    `json:"binary_mode"`
