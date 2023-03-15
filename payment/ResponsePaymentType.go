@@ -1,7 +1,5 @@
 package payment
 
-import "log"
-
 type ResponsePayment struct {
 	ID                  int     `json:"id"`
 	TransactionAmount   float32 `json:"transaction_amount"`
