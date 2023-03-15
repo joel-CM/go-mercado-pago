@@ -1,7 +1,7 @@
 package notification
 
 type Notification struct {
-	ID          string `json:"id"`
+	ID          int    `json:"id"`
 	LiveMode    string `json:"live_mode"`
 	Type        string `json:"type"`
 	DateCreated string `json:"date_created"`
