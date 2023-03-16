@@ -9,7 +9,9 @@ import (
 	mercadopago "github.com/joel-CM/go_mercadopago"
 )
 
-func (p Preference) Create() (ResponsePreference, error) {
+func (p Preference) Create(configurationPreference ConfigurationPreference) (ResponsePreference, error) {
+	setConfigurationPreference(&p, configurationPreference)
+
 	var client *http.Client = &http.Client{}
 	var respPref ResponsePreference = ResponsePreference{}
 
@@ -43,4 +45,12 @@ func (p Preference) Create() (ResponsePreference, error) {
 	}
 
 	return respPref, nil
+}
+
+func setConfigurationPreference(p *Preference, configurationPreference ConfigurationPreference) {
+	if configurationPreference.Installments > 0 {
+		p.PaymentMethods.Installments = configurationPreference.Installments
+	} else {
+		p.PaymentMethods.Installments = 1
+	}
 }
