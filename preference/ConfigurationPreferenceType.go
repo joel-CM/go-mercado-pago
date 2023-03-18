@@ -1,6 +1,6 @@
 package preference
 
 type ConfigurationPreference struct {
-	Installments        int
-	DefaultInstallments int
+	Installments        int `json:"installments"`
+	DefaultInstallments int `json:"default_installments"`
 }
