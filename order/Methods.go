@@ -36,3 +36,29 @@ func (order *Order) Create() (ResponseOrder, error) {
 
 	return responseOrder, nil
 }
+
+func GetById(id int) (ResponseOrder, error) {
+	var client *http.Client = &http.Client{}
+	var order ResponseOrder
+
+	req, reqErr := http.NewRequest("GET", fmt.Sprintf("%v/%v", mercadopago.ApiOrderMP, id), nil)
+	if reqErr != nil {
+		return order, reqErr
+	}
+
+	req.Header.Add("Authorization", fmt.Sprintf("Bearer %v", mercadopago.AccessToken))
+
+	respOrder, respOrderErr := client.Do(req)
+	if respOrderErr != nil {
+		return order, respOrderErr
+	}
+
+	defer respOrder.Body.Close()
+
+	decErr := json.NewDecoder(respOrder.Body).Decode(&order)
+	if decErr != nil {
+		return order, decErr
+	}
+
+	return order, nil
+}
