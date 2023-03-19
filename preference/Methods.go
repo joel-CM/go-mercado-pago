@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"net/http"
 
-	mercadopago "github.com/joel-CM/go_mercadopago"
+	c "github.com/joel-CM/go_mercadopago/config"
 )
 
 func (p Preference) Create(configurationPreference *ConfigurationPreference) (ResponsePreference, error) {
@@ -22,7 +22,7 @@ func (p Preference) Create(configurationPreference *ConfigurationPreference) (Re
 
 	req, reqErr := http.NewRequest(
 		"POST",
-		mercadopago.ApiPreferenceMP,
+		c.Config.ApiPreferenceMP,
 		bytes.NewBuffer(jsonPreference),
 	)
 	if reqErr != nil {
@@ -30,7 +30,7 @@ func (p Preference) Create(configurationPreference *ConfigurationPreference) (Re
 	}
 
 	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("Authorization", fmt.Sprintf("Bearer %v", mercadopago.AccessToken))
+	req.Header.Add("Authorization", fmt.Sprintf("Bearer %v", c.Config.AccessToken))
 
 	resp, respErr := client.Do(req)
 	if respErr != nil {

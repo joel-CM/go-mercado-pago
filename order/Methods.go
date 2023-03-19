@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"net/http"
 
-	mercadopago "github.com/joel-CM/go_mercadopago"
+	c "github.com/joel-CM/go_mercadopago/config"
 )
 
 func (order *Order) Create() (ResponseOrder, error) {
@@ -15,13 +15,13 @@ func (order *Order) Create() (ResponseOrder, error) {
 
 	jsonOrder, _ := json.Marshal(order)
 
-	req, reqErr := http.NewRequest("POST", mercadopago.ApiOrderMP, bytes.NewBuffer(jsonOrder))
+	req, reqErr := http.NewRequest("POST", c.Config.ApiOrderMP, bytes.NewBuffer(jsonOrder))
 	if reqErr != nil {
 		return responseOrder, reqErr
 	}
 
 	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("Authorization", fmt.Sprintf("Bearer %v", mercadopago.AccessToken))
+	req.Header.Add("Authorization", fmt.Sprintf("Bearer %v", c.Config.AccessToken))
 
 	respOder, respOrderErr := client.Do(req)
 	if respOrderErr != nil {
@@ -41,12 +41,12 @@ func GetById(id int) (ResponseOrder, error) {
 	var client *http.Client = &http.Client{}
 	var order ResponseOrder
 
-	req, reqErr := http.NewRequest("GET", fmt.Sprintf("%v/%v", mercadopago.ApiOrderMP, id), nil)
+	req, reqErr := http.NewRequest("GET", fmt.Sprintf("%v/%v", c.Config.ApiOrderMP, id), nil)
 	if reqErr != nil {
 		return order, reqErr
 	}
 
-	req.Header.Add("Authorization", fmt.Sprintf("Bearer %v", mercadopago.AccessToken))
+	req.Header.Add("Authorization", fmt.Sprintf("Bearer %v", c.Config.AccessToken))
 
 	respOrder, respOrderErr := client.Do(req)
 	if respOrderErr != nil {
